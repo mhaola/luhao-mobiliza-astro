@@ -1,0 +1,29 @@
+name: luhao-mobiliza
+region: nyc
+
+static_sites:
+  - name: web
+    github:
+      repo: mhaola/luhao-mobiliza-astro
+      branch: main
+      deploy_on_push: true
+    source_dir: /
+    build_command: npm run build
+    output_dir: dist
+    environment_slug: node-js
+    envs:
+      - key: PUBLIC_GA_ID
+        scope: BUILD_TIME
+        value: ""
+      - key: PUBLIC_GOOGLE_ADS_ID
+        scope: BUILD_TIME
+        value: ""
+      - key: PUBLIC_META_PIXEL_ID
+        scope: BUILD_TIME
+        value: ""
+
+domains:
+  - domain: luhao-mobiliza.com.br
+    type: PRIMARY
+  - domain: www.luhao-mobiliza.com.br
+    type: ALIAS

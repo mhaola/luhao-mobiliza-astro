@@ -1,0 +1,379 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTA from '../components/CTA.astro';
+import { getWhatsAppUrl } from '../config/site';
+
+const pageTitle = 'LuHao Mobiliza | Consultoria Independente de Mobilidade Corporativa e Frotas';
+const pageDescription = 'A LuHao Mobiliza estrutura o diagnóstico, a decisão, a contratação, a transformação e a governança da mobilidade corporativa com a metodologia MOVE® — independente de fornecedores.';
+
+const whatsappPrimary = getWhatsAppUrl('Olá, quero falar com a LuHao Mobiliza sobre a mobilidade corporativa da minha empresa.');
+
+const journey = [
+  { step: '01', label: 'Diagnóstico', move: 'MAP', question: 'Onde estamos?', product: 'Mobility Readiness Assessment®', anchor: 'diagnostico' },
+  { step: '02', label: 'Decisão', move: 'OPTIMIZE + VALIDATE', question: 'Qual cenário vence?', product: 'Mobility Business Case®', anchor: 'decisao' },
+  { step: '03', label: 'Contratação', move: 'VALIDATE + EXECUTE', question: 'Como contratar com governança?', product: 'Procurement Advisory®', anchor: 'contratacao' },
+  { step: '04', label: 'Transformação', move: 'EXECUTE', question: 'Como capturar o valor?', product: 'Mobility Transformation®', anchor: 'transformacao' },
+  { step: '05', label: 'Governança', move: 'MEASURE', question: 'Como sustentar o valor?', product: 'Mobility Office®', anchor: 'governanca' },
+];
+
+const principles = [
+  { title: 'Independência', text: 'Recomendações não são condicionadas a fornecedores, comissões ou modelos previamente escolhidos.' },
+  { title: 'Evidência', text: 'Todo achado relevante está associado a dado, documento, entrevista ou observação verificável.' },
+  { title: 'Materialidade', text: 'O esforço analítico é proporcional ao impacto financeiro, operacional e de risco.' },
+  { title: 'Decisão, não inventário', text: 'O produto converte informação dispersa em prioridades e decisões executivas.' },
+];
+
+const proofPoints = [
+  ['5 etapas', 'uma única jornada, do diagnóstico à governança contínua'],
+  ['6 produtos', 'cada etapa pode ser contratada isoladamente ou como jornada completa'],
+  ['MOVE®', 'Map, Optimize, Validate, Execute, Measure'],
+  ['Independente', 'sem comissão ou vínculo com fornecedores de frota'],
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} bodyClass="lm-home">
+  <section class="lm-hero">
+    <div class="container lm-hero__inner">
+      <span class="eyebrow">LuHao Mobiliza · Fleet &amp; Mobility</span>
+      <h1>Mobilidade corporativa decidida com evidência, não com achismo.</h1>
+      <p class="lm-hero__lead">
+        Diagnóstico, decisão, contratação, transformação e governança — uma única jornada, conduzida do início ao fim com independência e mensuração contínua pela metodologia <strong>MOVE®</strong>.
+      </p>
+      <div class="lm-hero__actions">
+        <a class="btn btn--primary" href={whatsappPrimary} target="_blank" rel="noopener noreferrer">Solicitar diagnóstico</a>
+        <a class="btn btn--outline" href="/metodologia">Conhecer a metodologia MOVE®</a>
+      </div>
+
+      <ul class="lm-hero__proof">
+        {proofPoints.map(([kpi, label]) => (
+          <li><strong>{kpi}</strong><span>{label}</span></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="jornada">
+    <div class="container">
+      <div class="lm-section-head">
+        <span class="eyebrow">Visão geral</span>
+        <h2>Uma jornada com cinco etapas, um único método</h2>
+        <p>Cada etapa corresponde a um momento do MOVE® e pode ser contratada isoladamente ou como jornada completa. A governança alimenta o ciclo seguinte, tornando o método contínuo.</p>
+      </div>
+
+      <div class="lm-journey">
+        {journey.map((item) => (
+          <a class="lm-journey__card" href={`/metodologia#${item.anchor}`}>
+            <span class="lm-journey__step">{item.step}</span>
+            <span class="lm-journey__move">{item.move}</span>
+            <h3>{item.label}</h3>
+            <p class="lm-journey__question">&ldquo;{item.question}&rdquo;</p>
+            <p class="lm-journey__product">{item.product}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container">
+      <div class="lm-section-head">
+        <span class="eyebrow">Por que a Mobiliza</span>
+        <h2>Princípios que não mudam conforme o cliente</h2>
+      </div>
+
+      <div class="lm-principles">
+        {principles.map((p) => (
+          <div class="lm-principles__card">
+            <h3>{p.title}</h3>
+            <p>{p.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--navy">
+    <div class="container lm-measure">
+      <div class="lm-section-head lm-section-head--light">
+        <span class="eyebrow">Disciplina transversal</span>
+        <h2>Measure: a disciplina que nunca para</h2>
+        <p>
+          O MOVE® não termina na governança. Um <strong>Value Ledger</strong> acompanha cada decisão do baseline ao benefício realizado — e a governança alimenta o próximo ciclo de diagnóstico.
+        </p>
+      </div>
+
+      <div class="lm-measure__timeline">
+        {['Baseline', 'Hipótese', 'Business Case', 'Decisão', 'Implantação', 'Benefício realizado'].map((label, i) => (
+          <div class="lm-measure__node">
+            <span>{i + 1}</span>
+            <p>{label}</p>
+          </div>
+        ))}
+      </div>
+
+      <p class="lm-measure__note">
+        Cada um dos seis produtos da Mobiliza é uma forma de contratar uma parte específica desta mesma jornada. A recomendação de hoje se torna a evidência de amanhã — e a mensuração contínua garante que nenhum benefício prometido seja esquecido no caminho.
+      </p>
+    </div>
+  </section>
+
+  <CTA />
+</BaseLayout>
+
+<style>
+  .lm-hero {
+    padding: 100px 0 80px;
+    background:
+      radial-gradient(circle at 85% 0%, rgba(255, 47, 168, 0.14), transparent 40%),
+      radial-gradient(circle at 0% 100%, rgba(41, 214, 255, 0.12), transparent 40%),
+      linear-gradient(160deg, #061a3d, #0b1230);
+    color: #fff;
+  }
+
+  .lm-hero__inner {
+    max-width: 780px;
+  }
+
+  .lm-hero h1 {
+    color: #fff;
+    font-size: clamp(34px, 5vw, 54px);
+    line-height: 1.1;
+    margin: 18px 0 20px;
+  }
+
+  .lm-hero__lead {
+    font-size: 18px;
+    color: rgba(255, 255, 255, 0.82);
+    max-width: 640px;
+    margin: 0 0 32px;
+  }
+
+  .lm-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  .lm-hero .btn--outline {
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.35);
+  }
+
+  .lm-hero .btn--outline:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: #fff;
+  }
+
+  .lm-hero__proof {
+    list-style: none;
+    margin: 0;
+    padding: 24px 0 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    gap: 28px;
+  }
+
+  .lm-hero__proof li {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .lm-hero__proof strong {
+    font-family: 'Oswald', sans-serif;
+    font-size: 22px;
+    color: var(--lm-cyan);
+  }
+
+  .lm-hero__proof span {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.68);
+    max-width: 160px;
+  }
+
+  .lm-section-head {
+    max-width: 680px;
+    margin: 0 0 44px;
+  }
+
+  .lm-section-head h2 {
+    font-size: clamp(26px, 3.4vw, 36px);
+    margin: 14px 0 12px;
+  }
+
+  .lm-section-head p {
+    color: var(--lm-muted);
+    font-size: 16px;
+  }
+
+  .lm-section-head--light h2 {
+    color: #fff;
+  }
+
+  .lm-section-head--light p {
+    color: rgba(255, 255, 255, 0.76);
+  }
+
+  .lm-journey {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+  }
+
+  .lm-journey__card {
+    display: block;
+    padding: 26px 22px;
+    border-radius: 14px;
+    background: #fff;
+    border: 1px solid rgba(6, 26, 61, 0.08);
+    box-shadow: 0 12px 30px rgba(6, 26, 61, 0.06);
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .lm-journey__card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(6, 26, 61, 0.12);
+  }
+
+  .lm-journey__step {
+    font-family: 'Oswald', sans-serif;
+    font-size: 28px;
+    color: rgba(6, 26, 61, 0.14);
+    font-weight: 700;
+  }
+
+  .lm-journey__move {
+    display: inline-block;
+    margin: 10px 0 8px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    color: var(--lm-purple);
+  }
+
+  .lm-journey__card h3 {
+    font-size: 19px;
+    margin: 0 0 8px;
+  }
+
+  .lm-journey__question {
+    font-size: 13.5px;
+    color: var(--lm-muted);
+    font-style: italic;
+    margin: 0 0 12px;
+  }
+
+  .lm-journey__product {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--lm-navy);
+    margin: 0;
+    padding-top: 12px;
+    border-top: 1px dashed rgba(6, 26, 61, 0.12);
+  }
+
+  .lm-principles {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+  }
+
+  .lm-principles__card {
+    padding: 26px;
+    border-radius: 14px;
+    background: #fff;
+    border: 1px solid rgba(6, 26, 61, 0.08);
+  }
+
+  .lm-principles__card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+
+  .lm-principles__card p {
+    color: var(--lm-muted);
+    font-size: 14.5px;
+    margin: 0;
+  }
+
+  .lm-measure {
+    text-align: left;
+  }
+
+  .lm-measure__timeline {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 12px;
+    margin: 32px 0 36px;
+  }
+
+  .lm-measure__node {
+    padding: 18px 14px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    text-align: center;
+  }
+
+  .lm-measure__node span {
+    display: inline-flex;
+    width: 26px;
+    height: 26px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--lm-pink);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 800;
+    margin-bottom: 10px;
+  }
+
+  .lm-measure__node p {
+    margin: 0;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.86);
+    font-weight: 600;
+  }
+
+  .lm-measure__note {
+    max-width: 820px;
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 15px;
+  }
+
+  @media (max-width: 1080px) {
+    .lm-journey {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .lm-principles {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 760px) {
+    .lm-hero {
+      padding: 72px 0 56px;
+    }
+
+    .lm-hero__proof {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .lm-journey {
+      grid-template-columns: 1fr;
+    }
+
+    .lm-principles {
+      grid-template-columns: 1fr;
+    }
+
+    .lm-measure__timeline {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

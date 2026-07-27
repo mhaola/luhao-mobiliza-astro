@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getWhatsAppUrl } from '../config/site';
+
+const whatsappUrl = getWhatsAppUrl();
+---
+
+<BaseLayout title="Página não encontrada | LuHao Mobiliza" description="A página que você procura não existe ou foi movida." noindex={true}>
+  <section class="lm-404">
+    <div class="container">
+      <span class="eyebrow">Erro 404</span>
+      <h1>Esta página não existe (ou mudou de endereço).</h1>
+      <p>Volte para a página inicial ou fale diretamente com a gente sobre a mobilidade corporativa da sua empresa.</p>
+      <div class="lm-404__actions">
+        <a class="btn btn--primary" href="/">Voltar para a home</a>
+        <a class="btn btn--outline" href={whatsappUrl} target="_blank" rel="noopener noreferrer">Falar no WhatsApp</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .lm-404 {
+    padding: 120px 0;
+    text-align: center;
+  }
+
+  .lm-404 h1 {
+    font-size: clamp(26px, 4vw, 38px);
+    margin: 16px auto 14px;
+    max-width: 620px;
+  }
+
+  .lm-404 p {
+    max-width: 520px;
+    margin: 0 auto 32px;
+    color: var(--lm-muted);
+  }
+
+  .lm-404__actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+</style>

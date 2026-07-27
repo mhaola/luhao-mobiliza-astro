@@ -1,0 +1,176 @@
+---
+import { getWhatsAppUrl } from '../config/site';
+
+interface Props {
+  eyebrow?: string;
+  title?: string;
+  text?: string;
+  primaryLabel?: string;
+  primaryHref?: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+  message?: string;
+  variant?: 'dark' | 'light';
+}
+
+const {
+  eyebrow = 'Próxima etapa',
+  title = 'Toda jornada começa com um diagnóstico.',
+  text = 'O Mobility Readiness Assessment® revela, em poucas semanas, onde está o valor da sua mobilidade corporativa — antes de qualquer decisão de compra ou contratação.',
+  primaryLabel = 'Falar com um especialista',
+  primaryHref,
+  secondaryLabel = 'Conhecer a metodologia MOVE®',
+  secondaryHref = '/metodologia',
+  message = 'Olá, quero entender como funciona o Mobility Readiness Assessment® da LuHao Mobiliza.',
+  variant = 'dark',
+} = Astro.props;
+
+const finalPrimaryHref = primaryHref ?? getWhatsAppUrl(message);
+---
+
+<section class={`lm-cta lm-cta--${variant}`}>
+  <div class="lm-cta__container">
+    <div class="lm-cta__inner">
+      <div class="lm-cta__content">
+        <span class="lm-cta__eyebrow">{eyebrow}</span>
+        <h2>{title}</h2>
+        <p>{text}</p>
+      </div>
+      <div class="lm-cta__actions">
+        <a class="lm-cta__primary" href={finalPrimaryHref} target={finalPrimaryHref.startsWith('http') ? '_blank' : undefined} rel={finalPrimaryHref.startsWith('http') ? 'noopener noreferrer' : undefined}>
+          {primaryLabel}
+        </a>
+        {secondaryHref && (
+          <a class="lm-cta__secondary" href={secondaryHref}>{secondaryLabel}</a>
+        )}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .lm-cta {
+    position: relative;
+    padding: 88px 0;
+    overflow: hidden;
+  }
+
+  .lm-cta__container {
+    width: min(1180px, calc(100% - 40px));
+    margin: 0 auto;
+  }
+
+  .lm-cta--dark {
+    background:
+      radial-gradient(circle at top left, rgba(41, 214, 255, 0.16), transparent 32%),
+      linear-gradient(135deg, var(--lm-navy), #0b1230);
+  }
+
+  .lm-cta--light {
+    background: var(--lm-soft);
+  }
+
+  .lm-cta__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 36px;
+  }
+
+  .lm-cta__content {
+    max-width: 700px;
+  }
+
+  .lm-cta__eyebrow {
+    display: inline-block;
+    margin-bottom: 14px;
+    padding: 7px 13px;
+    border: 1px solid rgba(41, 214, 255, 0.35);
+    border-radius: 999px;
+    background: rgba(41, 214, 255, 0.12);
+    color: var(--lm-cta-eyebrow-color, #fff);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .lm-cta h2 {
+    color: var(--lm-cta-title-color, #fff);
+    font-family: 'Oswald', sans-serif;
+    font-size: clamp(28px, 3.6vw, 42px);
+    font-weight: 700;
+    line-height: 1.15;
+    margin: 0 0 16px;
+  }
+
+  .lm-cta p {
+    color: var(--lm-cta-text-color, rgba(255, 255, 255, 0.82));
+    font-size: 17px;
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  .lm-cta--light {
+    --lm-cta-eyebrow-color: var(--lm-navy);
+    --lm-cta-title-color: var(--lm-navy);
+    --lm-cta-text-color: #4a5468;
+  }
+
+  .lm-cta__actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    flex-shrink: 0;
+  }
+
+  .lm-cta__primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 52px;
+    padding: 0 26px;
+    border-radius: 6px;
+    background: linear-gradient(135deg, var(--lm-pink), var(--lm-purple));
+    color: #fff;
+    font-weight: 800;
+    font-size: 14px;
+    white-space: nowrap;
+    box-shadow: 0 18px 32px rgba(255, 47, 168, 0.24);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .lm-cta__primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 22px 40px rgba(255, 47, 168, 0.32);
+  }
+
+  .lm-cta__secondary {
+    color: var(--lm-cta-secondary-color, #fff);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+    font-size: 14px;
+  }
+
+  .lm-cta--light .lm-cta__secondary {
+    --lm-cta-secondary-color: var(--lm-navy);
+  }
+
+  @media (max-width: 860px) {
+    .lm-cta {
+      padding: 64px 0;
+    }
+
+    .lm-cta__inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .lm-cta__actions {
+      justify-content: flex-start;
+    }
+  }
+</style>

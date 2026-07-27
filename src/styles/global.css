@@ -1,0 +1,137 @@
+/* =====================================================================
+   LuHao Mobiliza — Design tokens e utilitários globais
+   ===================================================================== */
+
+:root {
+  --lm-navy: #061a3d;
+  --lm-navy-2: #0b2a5b;
+  --lm-pink: #ff2fa8;
+  --lm-purple: #5b3df5;
+  --lm-cyan: #29d6ff;
+  --lm-white: #ffffff;
+  --lm-soft: #f2f5fb;
+  --lm-ink: #14213d;
+  --lm-muted: #5b6473;
+  --lm-border: rgba(255, 255, 255, 0.16);
+  --lm-shadow: 0 24px 70px rgba(3, 14, 36, 0.14);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--lm-ink);
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Oswald', sans-serif;
+  color: var(--lm-navy);
+  margin: 0;
+}
+
+p {
+  line-height: 1.7;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+.container {
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: rgba(91, 61, 245, 0.08);
+  border: 1px solid rgba(91, 61, 245, 0.18);
+  color: var(--lm-purple);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 52px;
+  padding: 0 26px;
+  border-radius: 6px;
+  font-weight: 800;
+  font-size: 14px;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, color 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn--primary {
+  background: linear-gradient(135deg, var(--lm-pink), var(--lm-purple));
+  color: #fff;
+  box-shadow: 0 18px 32px rgba(255, 47, 168, 0.22);
+}
+
+.btn--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 22px 40px rgba(255, 47, 168, 0.3);
+}
+
+.btn--outline {
+  background: transparent;
+  color: var(--lm-navy);
+  border: 1.5px solid rgba(6, 26, 61, 0.2);
+}
+
+.btn--outline:hover {
+  border-color: var(--lm-navy);
+  background: rgba(6, 26, 61, 0.04);
+}
+
+.section {
+  padding: 88px 0;
+}
+
+.section--tight {
+  padding: 64px 0;
+}
+
+.section--soft {
+  background: var(--lm-soft);
+}
+
+.section--navy {
+  background: linear-gradient(160deg, var(--lm-navy), #0b1230);
+  color: #fff;
+}
+
+.section--navy h2,
+.section--navy h3 {
+  color: #fff;
+}
+
+@media (max-width: 760px) {
+  .section {
+    padding: 56px 0;
+  }
+}

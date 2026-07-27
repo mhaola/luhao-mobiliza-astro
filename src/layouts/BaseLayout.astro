@@ -1,0 +1,81 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import FloatingWhatsApp from '../components/FloatingWhatsApp.astro';
+import Tracking from '../components/Tracking.astro';
+import { siteConfig } from '../config/site';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  bodyClass?: string;
+  showFloatingWhatsApp?: boolean;
+  ogImage?: string;
+  noindex?: boolean;
+}
+
+const {
+  title = siteConfig.fullName,
+  description = 'Consultoria independente de mobilidade corporativa e gestão de frotas. Diagnóstico, decisão, contratação, transformação e governança com a metodologia MOVE®.',
+  bodyClass = '',
+  showFloatingWhatsApp = true,
+  ogImage = '/images/fundo-mobiliza.png',
+  noindex = false,
+} = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, siteConfig.url).toString();
+const absoluteOgImage = new URL(ogImage, siteConfig.url).toString();
+
+const fontStylesheet =
+  'https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap';
+---
+
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#061a3d" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="canonical" href={canonicalUrl} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteConfig.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={absoluteOgImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={absoluteOgImage} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style" href={fontStylesheet} />
+    <link rel="stylesheet" href={fontStylesheet} media="print" onload="this.media='all'" />
+    <noscript>
+      <link rel="stylesheet" href={fontStylesheet} />
+    </noscript>
+
+    <slot name="head" />
+  </head>
+  <body class={bodyClass}>
+    <div class="page-wrapper">
+      <Header currentPath={Astro.url.pathname} />
+      <main id="main-content">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+
+    {showFloatingWhatsApp && <FloatingWhatsApp />}
+
+    <Tracking />
+  </body>
+</html>

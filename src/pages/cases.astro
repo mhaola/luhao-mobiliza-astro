@@ -1,0 +1,467 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTA from '../components/CTA.astro';
+
+const pageTitle = 'Case Ilustrativo: Mobility Business Case® | LuHao Mobiliza';
+const pageDescription = 'Exemplo demonstrativo de como a LuHao Mobiliza estrutura a decisão entre propriedade, leasing, terceirização e modelos híbridos — ilustrado com o caso fictício da Alpha Engenharia.';
+
+const scenarios = [
+  { letter: 'A', name: 'Frota Própria', desc: 'Capital integralmente empregado na aquisição e manutenção da frota.' },
+  { letter: 'B', name: 'Compra Financiada', desc: 'Aquisição via financiamento, com entrada e amortização parcelada.' },
+  { letter: 'C', name: 'Leasing', desc: 'Uso mediante contraprestações periódicas, com ou sem opção de compra.' },
+  { letter: 'D', name: 'Terceirização', desc: 'Gestão e operação integralmente transferidas a um fornecedor especializado.' },
+  { letter: 'E', name: 'Assinatura', desc: 'Modelo flexível, com menor compromisso de prazo e maior custo recorrente.' },
+  { letter: 'F', name: 'Modelo Híbrido', desc: 'Combinação de ativos próprios e contratados por categoria de veículo.' },
+];
+
+const ranking = [
+  { name: 'Modelo Híbrido', score: '9,4' },
+  { name: 'Leasing', score: '8,8' },
+  { name: 'Terceirização', score: '8,5' },
+  { name: 'Compra Financiada', score: '7,1' },
+];
+
+const roadmap = [
+  { period: '0–90 dias', items: ['Aprovação formal da decisão', 'Corporate Mobility Policy® inicial', 'Preparação do Procurement Advisory®'] },
+  { period: '90–180 dias', items: ['RFP e equalização de propostas', 'Negociação e contratação', 'Piloto com frota operacional'] },
+  { period: '180–365 dias', items: ['Transformação e migração completa', 'Estabilização e captura de benefícios', 'Transição para o Mobility Office®'] },
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} bodyClass="lm-cases">
+  <section class="lm-page-hero">
+    <div class="container">
+      <span class="eyebrow">Exemplo demonstrativo</span>
+      <h1>Mobility Business Case® — exemplo de entregável</h1>
+      <p>
+        Como a Mobiliza estrutura a decisão entre propriedade, leasing, terceirização e modelos híbridos — ilustrado com o caso fictício da Alpha Engenharia.
+      </p>
+      <div class="lm-disclaimer">
+        <strong>Aviso:</strong> Alpha Engenharia é uma empresa fictícia, criada exclusivamente para demonstrar a profundidade e o formato de um Mobility Business Case®. Nenhum dado real de cliente é utilizado.
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="lm-section-head">
+        <span class="eyebrow">Contexto do caso · exemplo fictício</span>
+        <h2>Alpha Engenharia: engenharia e manutenção industrial</h2>
+        <p>Empresa fictícia com frota mista, usada para demonstrar a jornada completa do Mobility Business Case® — da pergunta de decisão à recomendação final.</p>
+      </div>
+
+      <div class="lm-kpis">
+        <div class="lm-kpis__card"><strong>20</strong><span>veículos na frota</span></div>
+        <div class="lm-kpis__card"><strong>1,7 / 5,0</strong><span>MRI herdado do diagnóstico</span></div>
+        <div class="lm-kpis__card"><strong>R$ 4,79 mi</strong><span>TCO registrado em 48 meses</span></div>
+        <div class="lm-kpis__card"><strong>44%</strong><span>manutenção corretiva</span></div>
+      </div>
+
+      <div class="lm-decision-question">
+        <span class="lm-decision-question__label">Decision question</span>
+        <p>&ldquo;Qual arquitetura de mobilidade deve atender as equipes operacionais e administrativas da Alpha Engenharia, minimizando custo econômico e risco sem reduzir disponibilidade?&rdquo;</p>
+        <span class="lm-decision-question__meta">População: 12 utilitários operacionais · 6 administrativos · 2 campo 4×4 — Horizonte de análise: 60 meses</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--soft">
+    <div class="container">
+      <div class="lm-section-head">
+        <span class="eyebrow">Cenários comparados</span>
+        <h2>Seis arquiteturas, avaliadas na mesma base comparável</h2>
+        <p>Nenhum cenário é comparado sem antes equalizar prazo, quilometragem, serviços, impostos e premissas financeiras.</p>
+      </div>
+
+      <div class="lm-scenarios">
+        {scenarios.map((s) => (
+          <div class="lm-scenarios__card">
+            <span class="lm-scenarios__letter">{s.letter}</span>
+            <h4>{s.name}</h4>
+            <p>{s.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="lm-section-head">
+        <span class="eyebrow">Modelagem financeira</span>
+        <h2>O que a modelagem financeira revelou</h2>
+        <p>TCO, fluxo de caixa, VPL, EBITDA e capital empregado calculados para cada um dos seis cenários, com sensibilidades de juros, quilometragem, residual e inflação.</p>
+      </div>
+
+      <div class="lm-kpis lm-kpis--three">
+        <div class="lm-kpis__card"><strong>14,52%</strong><span>WACC utilizado no modelo</span></div>
+        <div class="lm-kpis__card"><strong>Até 34%</strong><span>ganho de VPL: terceirização e leasing vs. compra financiada</span></div>
+        <div class="lm-kpis__card"><strong>R$ 3.300/mês</strong><span>benchmark de mercado para o veículo de referência</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--navy">
+    <div class="container">
+      <div class="lm-section-head lm-section-head--light">
+        <span class="eyebrow">Decisão</span>
+        <h2>A decisão final não se resume ao menor custo</h2>
+        <p>Os seis cenários foram avaliados em dez critérios, distribuídos em quatro dimensões ponderadas: econômico-financeira, operacional, risco e governança, e implementação.</p>
+      </div>
+
+      <div class="lm-ranking">
+        {ranking.map((r, i) => (
+          <div class="lm-ranking__row">
+            <span class="lm-ranking__pos">{i + 1}</span>
+            <span class="lm-ranking__name">{r.name}</span>
+            <span class="lm-ranking__score">{r.score}</span>
+          </div>
+        ))}
+      </div>
+
+      <div class="lm-recommendation">
+        <h3>Parecer técnico da Mobiliza</h3>
+        <p>Modelo híbrido, priorizando leasing e terceirização para a frota operacional, com capital próprio reservado apenas para veículos de missão crítica.</p>
+        <ul>
+          <li>Terceirização e leasing superam a compra financiada em até 34% de VPL no horizonte analisado</li>
+          <li>Disponibilidade operacional melhora com frota reserva contratual e SLA formalizado</li>
+          <li>Capital liberado pode ser redirecionado a investimentos produtivos da operação</li>
+          <li>Condicionantes: segmentação formal da frota, Corporate Mobility Policy® aprovada e piloto antes da escala completa</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="lm-section-head">
+        <span class="eyebrow">Roadmap executivo</span>
+        <h2>Da decisão à execução em três horizontes</h2>
+      </div>
+
+      <div class="lm-roadmap">
+        {roadmap.map((r) => (
+          <div class="lm-roadmap__card">
+            <span>{r.period}</span>
+            <ul>
+              {r.items.map((item) => <li>{item}</li>)}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTA
+    eyebrow="Próxima etapa"
+    title="O seu Business Case começa com os seus dados"
+    text="Este exemplo usa a Alpha Engenharia, uma empresa fictícia, apenas para ilustrar profundidade e formato. Seu Mobility Business Case® será construído com os dados reais da sua frota — a partir de um Mobility Readiness Assessment®."
+    primaryLabel="Solicitar diagnóstico"
+    secondaryLabel="Ver a metodologia completa"
+  />
+</BaseLayout>
+
+<style>
+  .lm-page-hero {
+    padding: 88px 0 56px;
+    background: linear-gradient(160deg, #061a3d, #0b1230);
+    color: #fff;
+  }
+
+  .lm-page-hero h1 {
+    color: #fff;
+    font-size: clamp(28px, 4vw, 44px);
+    line-height: 1.15;
+    margin: 16px 0 20px;
+    max-width: 780px;
+  }
+
+  .lm-page-hero p {
+    max-width: 720px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 17px;
+    margin: 0 0 26px;
+  }
+
+  .lm-disclaimer {
+    max-width: 720px;
+    padding: 16px 20px;
+    border-radius: 10px;
+    background: rgba(255, 47, 168, 0.12);
+    border: 1px solid rgba(255, 47, 168, 0.35);
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  .lm-section-head {
+    max-width: 700px;
+    margin: 0 0 40px;
+  }
+
+  .lm-section-head h2 {
+    font-size: clamp(24px, 3.2vw, 34px);
+    margin: 12px 0;
+  }
+
+  .lm-section-head p {
+    color: var(--lm-muted);
+    font-size: 15.5px;
+  }
+
+  .lm-section-head--light h2 {
+    color: #fff;
+  }
+
+  .lm-section-head--light p {
+    color: rgba(255, 255, 255, 0.76);
+  }
+
+  .lm-kpis {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 40px;
+  }
+
+  .lm-kpis--three {
+    grid-template-columns: repeat(3, 1fr);
+    margin-bottom: 0;
+  }
+
+  .lm-kpis__card {
+    padding: 22px;
+    border-radius: 12px;
+    background: #fff;
+    border: 1px solid rgba(6, 26, 61, 0.1);
+    text-align: center;
+  }
+
+  .lm-kpis__card strong {
+    display: block;
+    font-family: 'Oswald', sans-serif;
+    font-size: 26px;
+    color: var(--lm-navy);
+  }
+
+  .lm-kpis__card span {
+    font-size: 13px;
+    color: var(--lm-muted);
+  }
+
+  .lm-decision-question {
+    padding: 28px 32px;
+    border-radius: 14px;
+    background: var(--lm-navy);
+    color: #fff;
+  }
+
+  .lm-decision-question__label {
+    display: block;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--lm-cyan);
+    margin-bottom: 12px;
+  }
+
+  .lm-decision-question p {
+    font-size: 19px;
+    font-style: italic;
+    margin: 0 0 14px;
+    max-width: 760px;
+  }
+
+  .lm-decision-question__meta {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.62);
+  }
+
+  .lm-scenarios {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+
+  .lm-scenarios__card {
+    padding: 22px;
+    border-radius: 12px;
+    background: #fff;
+    border: 1px solid rgba(6, 26, 61, 0.1);
+  }
+
+  .lm-scenarios__letter {
+    display: inline-flex;
+    width: 30px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(91, 61, 245, 0.1);
+    color: var(--lm-purple);
+    font-weight: 800;
+    font-size: 14px;
+    margin-bottom: 12px;
+  }
+
+  .lm-scenarios__card h4 {
+    font-size: 16px;
+    margin: 0 0 8px;
+  }
+
+  .lm-scenarios__card p {
+    font-size: 13.5px;
+    color: var(--lm-muted);
+    margin: 0;
+  }
+
+  .lm-ranking {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 40px;
+  }
+
+  .lm-ranking__row {
+    display: grid;
+    grid-template-columns: 32px 1fr 60px;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .lm-ranking__pos {
+    font-family: 'Oswald', sans-serif;
+    color: var(--lm-cyan);
+    font-weight: 700;
+  }
+
+  .lm-ranking__name {
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .lm-ranking__score {
+    font-family: 'Oswald', sans-serif;
+    color: #fff;
+    font-weight: 700;
+    text-align: right;
+  }
+
+  .lm-recommendation {
+    padding: 30px 32px;
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+  }
+
+  .lm-recommendation h3 {
+    color: #fff;
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  .lm-recommendation > p {
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 16px;
+    margin: 0 0 18px;
+  }
+
+  .lm-recommendation ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 10px;
+  }
+
+  .lm-recommendation li {
+    position: relative;
+    padding-left: 20px;
+    color: rgba(255, 255, 255, 0.76);
+    font-size: 14.5px;
+  }
+
+  .lm-recommendation li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 7px;
+    height: 7px;
+    border-radius: 2px;
+    background: var(--lm-cyan);
+  }
+
+  .lm-roadmap {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .lm-roadmap__card {
+    padding: 24px;
+    border-radius: 14px;
+    background: var(--lm-soft);
+    border: 1px solid rgba(6, 26, 61, 0.08);
+  }
+
+  .lm-roadmap__card > span {
+    display: inline-block;
+    margin-bottom: 14px;
+    font-weight: 800;
+    color: var(--lm-navy);
+    font-size: 15px;
+  }
+
+  .lm-roadmap__card ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 10px;
+  }
+
+  .lm-roadmap__card li {
+    position: relative;
+    padding-left: 18px;
+    font-size: 14px;
+    color: var(--lm-ink);
+  }
+
+  .lm-roadmap__card li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 7px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--lm-pink);
+  }
+
+  @media (max-width: 1024px) {
+    .lm-kpis,
+    .lm-kpis--three,
+    .lm-scenarios,
+    .lm-roadmap {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .lm-kpis,
+    .lm-kpis--three,
+    .lm-scenarios,
+    .lm-roadmap {
+      grid-template-columns: 1fr;
+    }
+
+    .lm-ranking__row {
+      grid-template-columns: 28px 1fr 50px;
+    }
+  }
+</style>

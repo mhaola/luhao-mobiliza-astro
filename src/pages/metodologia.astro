@@ -1,0 +1,370 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTA from '../components/CTA.astro';
+
+const pageTitle = 'Metodologia MOVE® | LuHao Mobiliza';
+const pageDescription = 'Como funciona a metodologia MOVE® da LuHao Mobiliza: Map, Optimize, Validate, Execute e Measure — diagnóstico, decisão, contratação, transformação e governança da mobilidade corporativa.';
+
+const stages = [
+  {
+    anchor: 'diagnostico',
+    tag: 'ETAPA 1 DE 5',
+    move: 'MAP',
+    title: 'Diagnóstico',
+    question: '"Onde estamos?"',
+    what: [
+      'Levantamento de dados de frota, contratos, custos e usuários',
+      'Reconstrução do TCO atual e conciliação de desembolsos',
+      'Avaliação da maturidade em oito pilares de gestão',
+      'Mapeamento de riscos, gargalos e lacunas de dados',
+      'Identificação de hipóteses iniciais de valor e agenda de decisões prioritárias',
+    ],
+    product: 'Mobility Readiness Assessment®',
+    productDesc: 'Diagnóstico independente da situação atual da mobilidade corporativa.',
+    output: 'Baseline validada, Mobility Readiness Index (score de maturidade) e mapa de riscos — a base factual sobre a qual toda decisão seguinte será construída.',
+  },
+  {
+    anchor: 'decisao',
+    tag: 'ETAPA 2 DE 5',
+    move: 'OPTIMIZE + VALIDATE',
+    title: 'Decisão',
+    question: '"Qual cenário vence?"',
+    what: [
+      'Construção de cenários comparáveis: propriedade, financiamento, leasing, terceirização, assinatura e modelos híbridos',
+      'Modelagem financeira: TCO, fluxo de caixa, VPL, EBITDA e capital empregado',
+      'Testes de sensibilidade e análise de trade-offs',
+      'Matriz multicritério combinando fatores econômicos, operacionais, de risco e de implementação',
+      'Corporate Mobility Policy® formaliza as regras que sustentarão a decisão no dia a dia',
+    ],
+    product: 'Mobility Business Case®',
+    productDesc: 'Comparação econômica e estratégica entre arquiteturas de mobilidade.',
+    output: 'Decision Book com recomendação independente, cenário vencedor e roadmap executivo de 0 a 365 dias.',
+  },
+  {
+    anchor: 'contratacao',
+    tag: 'ETAPA 3 DE 5',
+    move: 'VALIDATE + EXECUTE',
+    title: 'Contratação',
+    question: '"Como contratar com competição e governança?"',
+    what: [
+      'Definição da estratégia concorrencial e mapeamento de fornecedores',
+      'Construção e lançamento da RFP com critérios e pesos formalizados',
+      'Equalização técnica e financeira das propostas recebidas',
+      'Scorecard de fornecedores, análise de riscos e shortlist',
+      'Apoio à negociação e revisão contratual assistida',
+    ],
+    product: 'Procurement Advisory®',
+    productDesc: 'Processo de contratação independente, comparável e auditável.',
+    output: 'Fornecedor recomendado, condições negociadas e Decision Book da contratação, prontos para a transição à implantação.',
+  },
+  {
+    anchor: 'transformacao',
+    tag: 'ETAPA 4 DE 5',
+    move: 'EXECUTE',
+    title: 'Transformação',
+    question: '"Como capturar o valor na prática?"',
+    what: [
+      'Estruturação do PMO de implantação e definição de RACI',
+      'Coordenação de fornecedores, áreas internas e cronograma',
+      'Migração de contratos, ativos, cadastros e sistemas',
+      'Comunicação, treinamento e gestão da mudança',
+      'Go live, estabilização e medição inicial dos benefícios',
+    ],
+    product: 'Mobility Transformation®',
+    productDesc: 'Implantação da estratégia aprovada, com continuidade operacional.',
+    output: 'Nova operação funcional, adotada pelas pessoas e com os primeiros benefícios já em captura mensurável.',
+  },
+  {
+    anchor: 'governanca',
+    tag: 'ETAPA 5 DE 5',
+    move: 'MEASURE',
+    title: 'Governança',
+    question: '"Como sustentar o valor ao longo do tempo?"',
+    what: [
+      'Governança contínua de contratos, fornecedores e SLAs',
+      'Consolidação de indicadores e dashboards executivos',
+      'Gestão de exceções, conciliação e revisão periódica da política',
+      'Benchmark contínuo com referências internas, contratuais e de mercado',
+      'Suporte analítico a novas decisões — reiniciando o ciclo quando necessário',
+    ],
+    product: 'Mobility Office®',
+    productDesc: 'Governança permanente da mobilidade. Inclui o módulo Benchmark + Decision Support®.',
+    output: 'Operação sob controle, benefícios preservados e um Value Ledger que alimenta o próximo ciclo de diagnóstico e decisão.',
+  },
+];
+
+const deliverables = [
+  { n: '01', title: 'Strategic & Economic Assessment', desc: 'Relatório executivo com diagnóstico, cenários e achados.' },
+  { n: '02', title: 'Financial Model', desc: 'Modelo financeiro completo em planilha auditável.' },
+  { n: '03', title: 'Decision Book®', desc: 'Síntese executiva para aprovação e registro da decisão.' },
+  { n: '04', title: 'Apresentação Executiva', desc: 'Versão resumida para diretoria e conselho.' },
+  { n: '05', title: 'Workbook Técnico (interno)', desc: 'Premissas, fontes e trilha de auditoria da Mobiliza.' },
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} bodyClass="lm-methodology">
+  <section class="lm-page-hero">
+    <div class="container">
+      <span class="eyebrow">Metodologia</span>
+      <h1>Como funciona a metodologia MOVE® da Mobiliza</h1>
+      <p>
+        Diagnóstico, decisão, contratação, transformação e governança — uma única jornada, conduzida do início ao fim com independência e mensuração contínua. Cada etapa corresponde a um momento do MOVE® (<strong>M</strong>ap, <strong>O</strong>ptimize, <strong>V</strong>alidate, <strong>E</strong>xecute) e pode ser contratada isoladamente ou como jornada completa.
+      </p>
+    </div>
+  </section>
+
+  {stages.map((stage, i) => (
+    <section class:list={['lm-stage', i % 2 === 1 && 'lm-stage--alt']} id={stage.anchor}>
+      <div class="container lm-stage__grid">
+        <div class="lm-stage__intro">
+          <span class="lm-stage__tag">{stage.tag}</span>
+          <h2>{stage.title}</h2>
+          <span class="lm-stage__move">{stage.move}</span>
+          <p class="lm-stage__question">{stage.question}</p>
+        </div>
+
+        <div class="lm-stage__body">
+          <div class="lm-stage__what">
+            <h3>O que acontece</h3>
+            <ul>
+              {stage.what.map((item) => <li>{item}</li>)}
+            </ul>
+          </div>
+
+          <div class="lm-stage__product">
+            <span class="lm-stage__product-label">Produto</span>
+            <h4>{stage.product}</h4>
+            <p>{stage.productDesc}</p>
+            <span class="lm-stage__output-label">Saída principal</span>
+            <p class="lm-stage__output">{stage.output}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <section class="section section--navy">
+    <div class="container">
+      <div class="lm-section-head lm-section-head--light">
+        <span class="eyebrow">Formato do entregável</span>
+        <h2>O que o cliente recebe ao final do projeto</h2>
+        <p>O Mobility Business Case® é entregue em cinco volumes ao cliente, mais um workbook técnico interno da Mobiliza. Os demais produtos seguem o mesmo padrão de rigor e rastreabilidade.</p>
+      </div>
+
+      <div class="lm-deliverables">
+        {deliverables.map((d) => (
+          <div class="lm-deliverables__card">
+            <span>{d.n}</span>
+            <h4>{d.title}</h4>
+            <p>{d.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTA />
+</BaseLayout>
+
+<style>
+  .lm-page-hero {
+    padding: 88px 0 64px;
+    background: linear-gradient(160deg, #061a3d, #0b1230);
+    color: #fff;
+  }
+
+  .lm-page-hero h1 {
+    color: #fff;
+    font-size: clamp(30px, 4.2vw, 46px);
+    line-height: 1.15;
+    margin: 16px 0 20px;
+    max-width: 780px;
+  }
+
+  .lm-page-hero p {
+    max-width: 720px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 17px;
+  }
+
+  .lm-stage {
+    padding: 72px 0;
+    scroll-margin-top: 90px;
+  }
+
+  .lm-stage--alt {
+    background: var(--lm-soft);
+  }
+
+  .lm-stage__grid {
+    display: grid;
+    grid-template-columns: 0.85fr 1.6fr;
+    gap: 48px;
+  }
+
+  .lm-stage__tag {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    color: var(--lm-purple);
+    margin-bottom: 12px;
+  }
+
+  .lm-stage__intro h2 {
+    font-size: clamp(28px, 3vw, 38px);
+    margin-bottom: 8px;
+  }
+
+  .lm-stage__move {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: rgba(41, 214, 255, 0.12);
+    border: 1px solid rgba(41, 214, 255, 0.3);
+    color: var(--lm-navy);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    margin-bottom: 14px;
+  }
+
+  .lm-stage__question {
+    font-size: 17px;
+    font-style: italic;
+    color: var(--lm-muted);
+    max-width: 260px;
+  }
+
+  .lm-stage__body {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 32px;
+  }
+
+  .lm-stage__what h3 {
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--lm-navy);
+    margin-bottom: 16px;
+  }
+
+  .lm-stage__what ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 12px;
+  }
+
+  .lm-stage__what li {
+    position: relative;
+    padding-left: 22px;
+    font-size: 15px;
+    color: var(--lm-ink);
+    line-height: 1.55;
+  }
+
+  .lm-stage__what li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+    background: var(--lm-pink);
+  }
+
+  .lm-stage__product {
+    padding: 26px;
+    border-radius: 14px;
+    background: #fff;
+    border: 1px solid rgba(6, 26, 61, 0.1);
+    box-shadow: 0 16px 34px rgba(6, 26, 61, 0.06);
+    height: fit-content;
+  }
+
+  .lm-stage__product-label,
+  .lm-stage__output-label {
+    display: block;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--lm-purple);
+    margin-bottom: 6px;
+  }
+
+  .lm-stage__product h4 {
+    font-size: 19px;
+    margin: 0 0 8px;
+  }
+
+  .lm-stage__product > p:not(.lm-stage__output) {
+    color: var(--lm-muted);
+    font-size: 14px;
+    margin: 0 0 20px;
+    padding-bottom: 18px;
+    border-bottom: 1px dashed rgba(6, 26, 61, 0.14);
+  }
+
+  .lm-stage__output-label {
+    margin-top: 0;
+  }
+
+  .lm-stage__output {
+    font-size: 14px;
+    color: var(--lm-ink);
+    margin: 0;
+  }
+
+  .lm-deliverables {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 18px;
+  }
+
+  .lm-deliverables__card {
+    padding: 22px 18px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+  }
+
+  .lm-deliverables__card span {
+    font-family: 'Oswald', sans-serif;
+    font-size: 22px;
+    color: var(--lm-cyan);
+  }
+
+  .lm-deliverables__card h4 {
+    color: #fff;
+    font-size: 15.5px;
+    margin: 10px 0 8px;
+  }
+
+  .lm-deliverables__card p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 13px;
+    margin: 0;
+  }
+
+  @media (max-width: 1024px) {
+    .lm-stage__grid,
+    .lm-stage__body {
+      grid-template-columns: 1fr;
+    }
+
+    .lm-deliverables {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .lm-deliverables {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

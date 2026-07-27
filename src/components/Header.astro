@@ -1,0 +1,488 @@
+---
+import { siteConfig, mainNav, getWhatsAppUrl } from '../config/site';
+
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = Astro.url.pathname } = Astro.props;
+
+const normalize = (path: string) => {
+  if (!path) return '/';
+  const clean = path.split('?')[0].split('#')[0].replace(/\/$/, '');
+  return clean || '/';
+};
+
+const activePath = normalize(currentPath);
+const isActive = (href: string) => normalize(href) === activePath;
+
+const whatsappUrl = getWhatsAppUrl();
+---
+
+<header class="lm-header" id="lm-header">
+  <div class="lm-header__topbar">
+    <div class="lm-header__container lm-header__topbar-inner">
+      <ul class="lm-header__contact" aria-label="Canais de contato">
+        <li>
+          <span class="lm-header__contact-icon" aria-hidden="true">☎</span>
+          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">{siteConfig.phoneLabel}</a>
+        </li>
+        <li>
+          <span class="lm-header__contact-icon" aria-hidden="true">✉</span>
+          <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+        </li>
+      </ul>
+
+      <div class="lm-header__eyebrow">Consultoria independente de mobilidade corporativa</div>
+    </div>
+  </div>
+
+  <nav class="lm-header__main" aria-label="Menu principal">
+    <div class="lm-header__container lm-header__main-inner">
+      <a class="lm-header__logo" href="/" aria-label="Página inicial da LuHao Mobiliza">
+        <img src={siteConfig.logo} alt={siteConfig.logoAlt} width="180" height="50" loading="eager" decoding="async" fetchpriority="high" />
+      </a>
+
+      <ul class="lm-header__nav">
+        {mainNav.map((item) => (
+          <li class:list={['lm-header__nav-item', isActive(item.href) && 'lm-header__nav-item--active']}>
+            <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a>
+          </li>
+        ))}
+      </ul>
+
+      <div class="lm-header__right">
+        <a class="lm-header__cta" href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+          <span>Falar com um especialista</span>
+        </a>
+
+        <button
+          class="lm-header__mobile-toggle"
+          type="button"
+          aria-label="Abrir menu"
+          aria-controls="lm-mobile-menu"
+          aria-expanded="false"
+          data-lm-mobile-open
+          data-label-open="Abrir menu"
+          data-label-close="Fechar menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<div class="lm-mobile-nav" id="lm-mobile-menu" inert>
+  <button class="lm-mobile-nav__overlay" type="button" aria-label="Fechar menu" data-lm-mobile-close></button>
+
+  <aside class="lm-mobile-nav__panel" aria-label="Menu mobile">
+    <div class="lm-mobile-nav__head">
+      <a class="lm-mobile-nav__logo" href="/">
+        <img src={siteConfig.logo} alt={siteConfig.logoAlt} width="160" height="44" loading="eager" decoding="async" />
+      </a>
+      <button class="lm-mobile-nav__close" type="button" aria-label="Fechar menu" data-lm-mobile-close>×</button>
+    </div>
+
+    <div class="lm-mobile-nav__contact">
+      <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">{siteConfig.phoneLabel}</a>
+      <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+    </div>
+
+    <ul class="lm-mobile-nav__list">
+      {mainNav.map((item) => (
+        <li class:list={[isActive(item.href) && 'lm-mobile-nav__item--active']}>
+          <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>{item.label}</a>
+        </li>
+      ))}
+    </ul>
+
+    <a class="lm-mobile-nav__cta" href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+      Falar com um especialista
+    </a>
+  </aside>
+</div>
+
+<script>
+  (() => {
+    const openButton = document.querySelector('[data-lm-mobile-open]');
+    const closeButtons = document.querySelectorAll('[data-lm-mobile-close]');
+    const mobileMenu = document.querySelector('#lm-mobile-menu');
+    const panel = mobileMenu?.querySelector('.lm-mobile-nav__panel');
+    const menuLinks = mobileMenu?.querySelectorAll('a');
+
+    if (!openButton || !mobileMenu) return;
+
+    const setMobileMenu = (isOpen: boolean) => {
+      mobileMenu.classList.toggle('lm-mobile-nav--open', isOpen);
+      openButton.setAttribute('aria-expanded', String(isOpen));
+      openButton.setAttribute(
+        'aria-label',
+        isOpen ? (openButton as HTMLElement).dataset.labelClose! : (openButton as HTMLElement).dataset.labelOpen!
+      );
+      document.documentElement.classList.toggle('lm-mobile-nav-is-open', isOpen);
+
+      if (isOpen) {
+        mobileMenu.removeAttribute('inert');
+        window.requestAnimationFrame(() => (panel?.querySelector('a, button') as HTMLElement)?.focus?.());
+      } else {
+        mobileMenu.setAttribute('inert', '');
+        (openButton as HTMLElement).focus?.();
+      }
+    };
+
+    openButton.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.contains('lm-mobile-nav--open');
+      setMobileMenu(!isOpen);
+    });
+
+    closeButtons.forEach((button) => {
+      button.addEventListener('click', () => setMobileMenu(false));
+    });
+
+    menuLinks?.forEach((link) => {
+      link.addEventListener('click', () => setMobileMenu(false));
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && mobileMenu.classList.contains('lm-mobile-nav--open')) {
+        setMobileMenu(false);
+      }
+    });
+  })();
+</script>
+
+<style>
+  .lm-header {
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    width: 100%;
+    font-family: inherit;
+  }
+
+  .lm-header__container {
+    width: min(1180px, calc(100% - 32px));
+    margin: 0 auto;
+  }
+
+  .lm-header__topbar {
+    position: relative;
+    z-index: 1002;
+    color: var(--lm-white);
+    background: linear-gradient(90deg, #061a3d, #132642 62%, #1c1a33);
+    border-bottom: 1px solid var(--lm-border);
+  }
+
+  .lm-header__topbar-inner {
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+  }
+
+  .lm-header__contact,
+  .lm-header__nav,
+  .lm-mobile-nav__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .lm-header__contact {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    font-size: 13px;
+    line-height: 1;
+  }
+
+  .lm-header__contact li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .lm-header a {
+    text-decoration: none;
+  }
+
+  .lm-header__contact a {
+    color: rgba(255, 255, 255, 0.9);
+    transition: color 0.2s ease;
+  }
+
+  .lm-header__contact a:hover {
+    color: var(--lm-pink);
+  }
+
+  .lm-header__contact-icon {
+    color: var(--lm-cyan);
+    font-size: 13px;
+  }
+
+  .lm-header__eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: rgba(255, 255, 255, 0.72);
+  }
+
+  .lm-header__main {
+    position: relative;
+    z-index: 1001;
+    background: rgba(6, 26, 61, 0.96);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 12px 30px rgba(2, 10, 26, 0.14);
+  }
+
+  .lm-header__main-inner {
+    min-height: 82px;
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  }
+
+  .lm-header__logo {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    min-width: 138px;
+  }
+
+  .lm-header__logo img,
+  .lm-mobile-nav__logo img {
+    display: block;
+    max-height: 46px;
+    width: auto;
+  }
+
+  .lm-header__nav {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .lm-header__nav-item > a {
+    min-height: 82px;
+    padding: 0 14px;
+    display: inline-flex;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.88);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .lm-header__nav-item > a:hover,
+  .lm-header__nav-item--active > a {
+    color: var(--lm-pink);
+  }
+
+  .lm-header__right {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .lm-header__cta,
+  .lm-mobile-nav__cta {
+    min-height: 48px;
+    padding: 0 20px;
+    border: 1px solid var(--lm-pink);
+    border-radius: 6px;
+    color: var(--lm-white);
+    background: linear-gradient(135deg, var(--lm-pink), var(--lm-purple));
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    font-size: 13px;
+    font-weight: 800;
+    box-shadow: 0 16px 28px rgba(255, 47, 168, 0.2);
+    transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .lm-header__cta:hover,
+  .lm-mobile-nav__cta:hover {
+    color: var(--lm-navy);
+    background: var(--lm-white);
+    border-color: var(--lm-pink);
+    transform: translateY(-1px);
+  }
+
+  .lm-header__mobile-toggle {
+    width: 46px;
+    height: 46px;
+    border: 1px solid var(--lm-border);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+  }
+
+  .lm-header__mobile-toggle span {
+    width: 20px;
+    height: 2px;
+    border-radius: 999px;
+    background: var(--lm-white);
+  }
+
+  .lm-mobile-nav {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+  }
+
+  .lm-mobile-nav--open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .lm-mobile-nav__overlay {
+    position: absolute;
+    inset: 0;
+    border: 0;
+    background: rgba(2, 10, 26, 0.72);
+  }
+
+  .lm-mobile-nav__panel {
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: min(420px, 88vw);
+    padding: 22px;
+    background: linear-gradient(180deg, #071b3d, #09152d);
+    color: var(--lm-white);
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 0.24s ease;
+    box-shadow: -24px 0 70px rgba(0, 0, 0, 0.26);
+  }
+
+  .lm-mobile-nav--open .lm-mobile-nav__panel {
+    transform: translateX(0);
+  }
+
+  .lm-mobile-nav__head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 22px;
+  }
+
+  .lm-mobile-nav__close {
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--lm-border);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--lm-white);
+    font-size: 26px;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .lm-mobile-nav__contact {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 16px;
+    border: 1px solid var(--lm-border);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.06);
+    margin-bottom: 18px;
+  }
+
+  .lm-mobile-nav__contact a,
+  .lm-mobile-nav__list a {
+    color: var(--lm-white);
+    text-decoration: none;
+  }
+
+  .lm-mobile-nav__list > li {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 12px 0;
+  }
+
+  .lm-mobile-nav__list > li > a {
+    display: block;
+    font-size: 16px;
+    font-weight: 800;
+  }
+
+  .lm-mobile-nav__item--active > a {
+    color: var(--lm-pink);
+  }
+
+  .lm-mobile-nav__cta {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .lm-mobile-nav-is-open {
+    overflow: hidden;
+  }
+
+  @media (max-width: 1080px) {
+    .lm-header__nav {
+      display: none;
+    }
+
+    .lm-header__mobile-toggle {
+      display: inline-flex;
+    }
+
+    .lm-header__main-inner {
+      min-height: 74px;
+      justify-content: space-between;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .lm-header__topbar {
+      display: none;
+    }
+
+    .lm-header__cta {
+      display: none;
+    }
+
+    .lm-header__logo img {
+      max-height: 38px;
+    }
+
+    .lm-header__main-inner {
+      min-height: 64px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lm-header *,
+    .lm-mobile-nav,
+    .lm-mobile-nav * {
+      transition-duration: 0.001ms !important;
+    }
+  }
+</style>

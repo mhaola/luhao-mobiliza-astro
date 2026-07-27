@@ -1,0 +1,200 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import { siteConfig, getWhatsAppUrl } from '../config/site';
+
+const pageTitle = 'Contato | LuHao Mobiliza';
+const pageDescription = 'Fale com a LuHao Mobiliza sobre diagnóstico, decisão, contratação, transformação ou governança da mobilidade corporativa da sua empresa.';
+
+const whatsappUrl = getWhatsAppUrl();
+
+const prepQuestions = [
+  'Qual decisão sua empresa precisa tomar sobre a frota nos próximos meses?',
+  'Por que essa decisão é relevante agora — qual o gatilho e o prazo?',
+  'Quantos veículos, usuários ou benefícios estão envolvidos (estimativa inicial já ajuda)?',
+  'Quais modelos existem hoje: própria, financiada, leasing, terceirizada, assinatura, allowance, híbrido?',
+  'Quem patrocina a decisão internamente e quem pode bloqueá-la?',
+  'Existe fornecedor ou solução previamente favorecida?',
+];
+---
+
+<BaseLayout title={pageTitle} description={pageDescription} bodyClass="lm-contact">
+  <section class="lm-page-hero">
+    <div class="container">
+      <span class="eyebrow">Contato</span>
+      <h1>Fale com a LuHao Mobiliza</h1>
+      <p>
+        Descreva a decisão pendente da sua frota. Respondemos por WhatsApp ou e-mail e, se houver aderência, agendamos uma conversa inicial de discovery — sem compromisso.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container lm-contact__grid">
+      <div class="lm-contact__channels">
+        <div class="lm-section-head">
+          <span class="eyebrow">Canais diretos</span>
+          <h2>Como falar com a gente</h2>
+        </div>
+
+        <ul class="lm-contact__list">
+          <li>
+            <Icon name="whatsapp" />
+            <div>
+              <strong>WhatsApp</strong>
+              <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">{siteConfig.phoneLabel}</a>
+            </div>
+          </li>
+          <li>
+            <Icon name="envelope" />
+            <div>
+              <strong>E-mail</strong>
+              <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+            </div>
+          </li>
+          <li>
+            <Icon name="map-marker-alt" />
+            <div>
+              <strong>Base</strong>
+              <span>{siteConfig.address}</span>
+            </div>
+          </li>
+        </ul>
+
+        <a class="btn btn--primary lm-contact__cta" href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+          Iniciar conversa no WhatsApp
+        </a>
+
+        <p class="lm-contact__sla">Respondemos discoveries qualificados em até 1 dia útil.</p>
+      </div>
+
+      <div class="lm-contact__prep">
+        <div class="lm-section-head">
+          <span class="eyebrow">Antes de conversar</span>
+          <h2>O que ajuda a acelerar o discovery inicial</h2>
+          <p>Não é preciso ter respostas exatas — estimativas iniciais já orientam a conversa.</p>
+        </div>
+
+        <ol>
+          {prepQuestions.map((q) => <li>{q}</li>)}
+        </ol>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .lm-page-hero {
+    padding: 88px 0 64px;
+    background: linear-gradient(160deg, #061a3d, #0b1230);
+    color: #fff;
+  }
+
+  .lm-page-hero h1 {
+    color: #fff;
+    font-size: clamp(30px, 4.2vw, 46px);
+    margin: 16px 0 20px;
+  }
+
+  .lm-page-hero p {
+    max-width: 680px;
+    color: rgba(255, 255, 255, 0.82);
+    font-size: 17px;
+  }
+
+  .lm-contact__grid {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 56px;
+  }
+
+  .lm-section-head {
+    margin: 0 0 24px;
+  }
+
+  .lm-section-head h2 {
+    font-size: clamp(22px, 2.8vw, 30px);
+    margin: 10px 0;
+  }
+
+  .lm-section-head p {
+    color: var(--lm-muted);
+    font-size: 15px;
+  }
+
+  .lm-contact__list {
+    list-style: none;
+    margin: 0 0 30px;
+    padding: 0;
+    display: grid;
+    gap: 20px;
+  }
+
+  .lm-contact__list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .lm-contact__list :global(svg) {
+    width: 20px;
+    height: 20px;
+    margin-top: 4px;
+    color: var(--lm-purple);
+  }
+
+  .lm-contact__list strong {
+    display: block;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--lm-muted);
+    margin-bottom: 4px;
+  }
+
+  .lm-contact__list a,
+  .lm-contact__list span {
+    font-size: 16px;
+    color: var(--lm-navy);
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .lm-contact__cta {
+    width: 100%;
+    margin-bottom: 14px;
+  }
+
+  .lm-contact__sla {
+    font-size: 13px;
+    color: var(--lm-muted);
+  }
+
+  .lm-contact__prep {
+    padding: 32px;
+    border-radius: 16px;
+    background: var(--lm-soft);
+    border: 1px solid rgba(6, 26, 61, 0.08);
+  }
+
+  .lm-contact__prep ol {
+    margin: 0;
+    padding-left: 22px;
+    display: grid;
+    gap: 14px;
+  }
+
+  .lm-contact__prep li {
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--lm-ink);
+    padding-left: 4px;
+  }
+
+  @media (max-width: 900px) {
+    .lm-contact__grid {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+</style>
