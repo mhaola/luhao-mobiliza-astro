@@ -1,5 +1,3 @@
-// ATENÇÃO: telefone, WhatsApp e redes sociais abaixo são placeholders.
-// Substitua pelos dados reais da LuHao Mobiliza antes de publicar.
 export const siteConfig = {
   name: 'LuHao Mobiliza',
   fullName: 'LuHao Mobiliza | Fleet & Mobility',
@@ -9,9 +7,9 @@ export const siteConfig = {
   logoAlt: 'LuHao Mobiliza | Fleet & Mobility',
   favicon: '/favicon.svg',
   email: 'contato@luhao-mobiliza.com.br',
-  phoneLabel: '+55 11 0000-0000',
-  phoneHref: 'tel:+551100000000',
-  whatsappNumber: '5511000000000',
+  phoneLabel: '+55 11 96305-4311',
+  phoneHref: 'tel:+5511963054311',
+  whatsappNumber: '5511963054311',
   whatsappDefaultMessage:
     'Olá, quero falar com a LuHao Mobiliza sobre consultoria independente de mobilidade corporativa e gestão de frotas.',
   address: 'São Paulo, SP',
