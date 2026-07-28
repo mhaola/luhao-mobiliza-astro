@@ -32,15 +32,13 @@ const whatsappUrl = getWhatsAppUrl();
           <a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
         </li>
       </ul>
-
-      <div class="lm-header__eyebrow">Consultoria independente de mobilidade corporativa</div>
     </div>
   </div>
 
   <nav class="lm-header__main" aria-label="Menu principal">
     <div class="lm-header__container lm-header__main-inner">
       <a class="lm-header__logo" href="/" aria-label="Página inicial da LuHao Mobiliza">
-        <img src={siteConfig.logo} alt={siteConfig.logoAlt} width="180" height="50" loading="eager" decoding="async" fetchpriority="high" />
+        <img src={siteConfig.logo} alt={siteConfig.logoAlt} width="210" height="58" loading="eager" decoding="async" fetchpriority="high" />
       </a>
 
       <ul class="lm-header__nav">
@@ -164,7 +162,7 @@ const whatsappUrl = getWhatsAppUrl();
   }
 
   .lm-header__container {
-    width: min(1180px, calc(100% - 32px));
+    width: min(1180px, calc(100% - 40px));
     margin: 0 auto;
   }
 
@@ -224,13 +222,6 @@ const whatsappUrl = getWhatsAppUrl();
     font-size: 13px;
   }
 
-  .lm-header__eyebrow {
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.02em;
-    color: rgba(255, 255, 255, 0.72);
-  }
-
   .lm-header__main {
     position: relative;
     z-index: 1001;
@@ -257,7 +248,7 @@ const whatsappUrl = getWhatsAppUrl();
   .lm-header__logo img,
   .lm-mobile-nav__logo img {
     display: block;
-    max-height: 46px;
+    max-height: 56px;
     width: auto;
   }
 
@@ -470,11 +461,11 @@ const whatsappUrl = getWhatsAppUrl();
     }
 
     .lm-header__logo img {
-      max-height: 38px;
+      max-height: 42px;
     }
 
     .lm-header__main-inner {
-      min-height: 64px;
+      min-height: 68px;
     }
   }
 

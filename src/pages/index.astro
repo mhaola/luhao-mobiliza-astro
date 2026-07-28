@@ -6,7 +6,7 @@ import { getWhatsAppUrl } from '../config/site';
 const pageTitle = 'LuHao Mobiliza | Consultoria Independente de Mobilidade Corporativa e Frotas';
 const pageDescription = 'A LuHao Mobiliza estrutura o diagnóstico, a decisão, a contratação, a transformação e a governança da mobilidade corporativa com a metodologia MOVE® — independente de fornecedores.';
 
-const whatsappPrimary = getWhatsAppUrl('Olá, quero falar com a LuHao Mobiliza sobre a mobilidade corporativa da minha empresa.');
+const whatsappPrimary = getWhatsAppUrl('Olá, quero agendar uma conversa estratégica com a LuHao Mobiliza sobre a mobilidade corporativa da minha empresa.');
 
 const journey = [
   { step: '01', label: 'Diagnóstico', move: 'MAP', question: 'Onde estamos?', product: 'Mobility Readiness Assessment®', anchor: 'diagnostico' },
@@ -24,10 +24,10 @@ const principles = [
 ];
 
 const proofPoints = [
-  ['5 etapas', 'uma única jornada, do diagnóstico à governança contínua'],
-  ['6 produtos', 'cada etapa pode ser contratada isoladamente ou como jornada completa'],
-  ['MOVE®', 'Map, Optimize, Validate, Execute, Measure'],
-  ['Independente', 'sem comissão ou vínculo com fornecedores de frota'],
+  ['Análise econômica', 'TCO, VPL e fluxo de caixa completos'],
+  ['Decisão auditável', 'Premissas e riscos formalmente documentados'],
+  ['Jornada integrada', 'Do diagnóstico à governança contínua'],
+  ['Independência real', 'Sem comissão ou vínculo com fornecedores'],
 ];
 ---
 
@@ -37,22 +37,24 @@ const proofPoints = [
   </Fragment>
 
   <section class="lm-hero">
-    <div class="container lm-hero__inner">
-      <span class="eyebrow">LuHao Mobiliza · Fleet &amp; Mobility</span>
-      <h1>Mobilidade corporativa decidida com evidência, não com achismo.</h1>
-      <p class="lm-hero__lead">
-        Diagnóstico, decisão, contratação, transformação e governança — uma única jornada, conduzida do início ao fim com independência e mensuração contínua pela metodologia <strong>MOVE®</strong>.
-      </p>
-      <div class="lm-hero__actions">
-        <a class="btn btn--primary" href={whatsappPrimary} target="_blank" rel="noopener noreferrer">Solicitar diagnóstico</a>
-        <a class="btn btn--outline" href="/metodologia">Conhecer a metodologia MOVE®</a>
-      </div>
+    <div class="container">
+      <div class="lm-hero__inner">
+        <span class="eyebrow">Consultoria independente em frotas e mobilidade corporativa</span>
+        <h1>Decisões de mobilidade corporativa com evidência — não com achismo.</h1>
+        <p class="lm-hero__lead">
+          Comparamos frota própria, financiamento, leasing, terceirização e assinatura para reduzir custo total, risco e capital imobilizado — com a metodologia <strong>MOVE®</strong> e sem vínculo com fornecedores.
+        </p>
+        <div class="lm-hero__actions">
+          <a class="btn btn--primary" href={whatsappPrimary} target="_blank" rel="noopener noreferrer">Agendar conversa estratégica</a>
+          <a class="btn btn--outline" href="/metodologia">Conhecer a metodologia MOVE®</a>
+        </div>
 
-      <ul class="lm-hero__proof">
-        {proofPoints.map(([kpi, label]) => (
-          <li><strong>{kpi}</strong><span>{label}</span></li>
-        ))}
-      </ul>
+        <ul class="lm-hero__proof">
+          {proofPoints.map(([kpi, label]) => (
+            <li><strong>{kpi}</strong><span>{label}</span></li>
+          ))}
+        </ul>
+      </div>
     </div>
   </section>
 
@@ -182,29 +184,31 @@ const proofPoints = [
   .lm-hero__proof {
     list-style: none;
     margin: 0;
-    padding: 24px 0 0;
+    padding: 26px 0 0;
     border-top: 1px solid rgba(255, 255, 255, 0.16);
     display: grid;
-    grid-template-columns: repeat(4, auto);
-    gap: 28px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
   }
 
   .lm-hero__proof li {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 5px;
   }
 
   .lm-hero__proof strong {
     font-family: 'Oswald', sans-serif;
-    font-size: 22px;
+    font-size: 18px;
+    font-weight: 600;
     color: var(--lm-cyan);
   }
 
   .lm-hero__proof span {
-    font-size: 13px;
-    color: rgba(255, 255, 255, 0.68);
-    max-width: 160px;
+    font-size: 14px;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.72);
+    max-width: 190px;
   }
 
   .lm-section-head {
