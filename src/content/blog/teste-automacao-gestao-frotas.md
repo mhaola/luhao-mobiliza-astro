@@ -69,13 +69,13 @@ Este processo deve ser conduzido com independência de fornecedores, considerand
 
 ## A importância da governança na mobilidade corporativa
 
-A automação é uma ferramenta poderosa, mas seu valor depende da governança que a sustenta. A implantação de um [mobility office](/mobility-office) estruturado assegura que as decisões baseadas em dados estejam alinhadas às políticas internas e objetivos estratégicos. Além disso, a governança permite monitorar riscos, garantir compliance e promover a melhoria contínua na gestão de frotas.
+A automação é uma ferramenta poderosa, mas seu valor depende da governança que a sustenta. A implantação de um [governança da mobilidade corporativa](/) estruturado assegura que as decisões baseadas em dados estejam alinhadas às políticas internas e objetivos estratégicos. Além disso, a governança permite monitorar riscos, garantir compliance e promover a melhoria contínua na gestão de frotas.
 
 Para gestores que desejam aprofundar o conhecimento e aprimorar suas práticas, a LuHao Mobiliza oferece soluções integradas que contemplam desde o diagnóstico até a transformação da mobilidade corporativa, sempre com foco em independência e análise criteriosa.
 
 ## Integração com a gestão de frotas
 
-A automação deve ser vista como parte de um ecossistema maior. A [gestão de frotas](/gestao-de-frotas) eficiente depende da sinergia entre tecnologia, processos e pessoas. O uso adequado dos dados automatizados permite:
+A automação deve ser vista como parte de um ecossistema maior. A [gestão de frotas](/blog) eficiente depende da sinergia entre tecnologia, processos e pessoas. O uso adequado dos dados automatizados permite:
 
 - Identificar oportunidades de otimização;
 - Reduzir custos sem comprometer a operação;
