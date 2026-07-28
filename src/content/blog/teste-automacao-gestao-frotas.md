@@ -1,11 +1,11 @@
 ---
 title: "Automação de gestão de frotas: como dados apoiam decisões"
 slug: "teste-automacao-gestao-frotas"
-canonical: "https://luhao-mobiliza.com.br/teste-automacao-gestao-frotas"
+canonical: "https://luhao-mobiliza.com.br/blog/teste-automacao-gestao-frotas"
 metaDescription: "Entenda como integrar dados, indicadores e rotinas automatizadas para uma gestão de frotas mais ágil e orientada por evidências."
 focusKeyword: "automação de gestão de frotas"
 secondaryKeywords: []
-pubDate: "28/07/2026"
+pubDate: "2026-07-28"
 author: "LuHao Mobiliza"
 categories:
   - "Tecnologia"
