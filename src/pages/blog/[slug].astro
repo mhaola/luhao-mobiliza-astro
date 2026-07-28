@@ -1,0 +1,247 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import CTA from '../../components/CTA.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+
+  return posts.map((post) => ({
+    params: { slug: post.data.slug || post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const { title, metaDescription, pubDate, author, categories, tags, featuredImage, featuredImageAlt } = post.data;
+
+const formattedDate = pubDate
+  ? new Date(pubDate).toLocaleDateString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric', timeZone: 'UTC' })
+  : '';
+---
+
+<BaseLayout title={`${title} | LuHao Mobiliza`} description={metaDescription} ogImage={featuredImage}>
+  <article class="lm-post">
+    <div class="container">
+      <nav class="lm-post__breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Início</a>
+        <span>/</span>
+        <a href="/blog">Blog</a>
+        <span>/</span>
+        <span aria-current="page">{title}</span>
+      </nav>
+
+      <header class="lm-post__header">
+        <span class="eyebrow">Blog LuHao Mobiliza</span>
+        <h1>{title}</h1>
+        {metaDescription && <p class="lm-post__description">{metaDescription}</p>}
+        <div class="lm-post__meta">
+          {formattedDate && <span>{formattedDate}</span>}
+          {formattedDate && <span aria-hidden="true">·</span>}
+          <span>{author}</span>
+        </div>
+      </header>
+
+      {featuredImage && (
+        <figure class="lm-post__figure">
+          <img src={featuredImage} alt={featuredImageAlt || title} loading="eager" />
+        </figure>
+      )}
+
+      <div class="lm-post__content">
+        <Content />
+      </div>
+
+      {(categories?.length > 0 || tags?.length > 0) && (
+        <footer class="lm-post__footer">
+          {categories?.length > 0 && (
+            <div class="lm-post__taxonomy">
+              <strong>Categorias:</strong>
+              <div>{categories.map((c: string) => <span>{c}</span>)}</div>
+            </div>
+          )}
+          {tags?.length > 0 && (
+            <div class="lm-post__taxonomy">
+              <strong>Tags:</strong>
+              <div>{tags.map((t: string) => <span>{t}</span>)}</div>
+            </div>
+          )}
+        </footer>
+      )}
+
+      <a class="lm-post__back" href="/blog">← Voltar para o blog</a>
+    </div>
+  </article>
+
+  <CTA />
+</BaseLayout>
+
+<style>
+  .lm-post {
+    padding: 56px 0 80px;
+  }
+
+  .lm-post__breadcrumb {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 28px;
+    color: var(--lm-muted);
+    font-size: 13.5px;
+  }
+
+  .lm-post__breadcrumb a {
+    color: var(--lm-navy);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .lm-post__breadcrumb a:hover {
+    color: var(--lm-pink);
+  }
+
+  .lm-post__header {
+    max-width: 820px;
+    margin-bottom: 32px;
+  }
+
+  .lm-post__header h1 {
+    font-size: clamp(28px, 4.2vw, 44px);
+    line-height: 1.15;
+    margin: 14px 0 16px;
+  }
+
+  .lm-post__description {
+    font-size: 17px;
+    color: var(--lm-muted);
+    margin: 0 0 16px;
+  }
+
+  .lm-post__meta {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    color: var(--lm-muted);
+    font-size: 13.5px;
+    font-weight: 600;
+  }
+
+  .lm-post__figure {
+    margin: 0 0 40px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(6, 26, 61, 0.08);
+  }
+
+  .lm-post__figure img {
+    display: block;
+    width: 100%;
+    max-height: 460px;
+    object-fit: cover;
+  }
+
+  .lm-post__content {
+    max-width: 760px;
+    font-size: 17px;
+    line-height: 1.8;
+    color: var(--lm-ink);
+  }
+
+  .lm-post__content :global(h2) {
+    font-size: clamp(22px, 2.8vw, 28px);
+    margin: 44px 0 16px;
+  }
+
+  .lm-post__content :global(h3) {
+    font-size: clamp(18px, 2.2vw, 22px);
+    margin: 32px 0 12px;
+  }
+
+  .lm-post__content :global(p) {
+    margin: 0 0 18px;
+  }
+
+  .lm-post__content :global(ul),
+  .lm-post__content :global(ol) {
+    margin: 0 0 18px;
+    padding-left: 22px;
+  }
+
+  .lm-post__content :global(li) {
+    margin-bottom: 8px;
+  }
+
+  .lm-post__content :global(a) {
+    color: var(--lm-purple);
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .lm-post__content :global(strong) {
+    color: var(--lm-navy);
+  }
+
+  .lm-post__content :global(blockquote) {
+    margin: 24px 0;
+    padding: 18px 22px;
+    border-left: 4px solid var(--lm-pink);
+    border-radius: 10px;
+    background: var(--lm-soft);
+    color: var(--lm-navy);
+    font-weight: 600;
+  }
+
+  .lm-post__footer {
+    max-width: 760px;
+    margin-top: 44px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(6, 26, 61, 0.1);
+    display: grid;
+    gap: 18px;
+  }
+
+  .lm-post__taxonomy strong {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--lm-navy);
+  }
+
+  .lm-post__taxonomy > div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .lm-post__taxonomy span {
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: var(--lm-soft);
+    color: var(--lm-navy);
+    font-size: 12.5px;
+    font-weight: 700;
+  }
+
+  .lm-post__back {
+    display: inline-block;
+    margin-top: 32px;
+    color: var(--lm-purple);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .lm-post__back:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 640px) {
+    .lm-post {
+      padding: 40px 0 56px;
+    }
+  }
+</style>

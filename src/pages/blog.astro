@@ -1,10 +1,18 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import CTA from '../components/CTA.astro';
 import { getWhatsAppUrl } from '../config/site';
 
 const pageTitle = 'Blog | LuHao Mobiliza';
-const pageDescription = 'Conteúdo sobre mobilidade corporativa, gestão de frotas, TCO, leasing, terceirização e governança de contratos — em produção pela LuHao Mobiliza.';
+const pageDescription = 'Conteúdo sobre mobilidade corporativa, gestão de frotas, TCO, leasing, terceirização e governança de contratos — pela LuHao Mobiliza.';
+
+const allPosts = await getCollection('blog');
+const posts = allPosts
+  .slice()
+  .sort((a, b) => new Date(b.data.pubDate).getTime() - new Date(a.data.pubDate).getTime());
+
+const publishedTitles = new Set(posts.map((p) => p.data.title));
 
 const upcomingTopics = [
   { title: 'TCO de frota: o que costuma ficar de fora da conta', tag: 'Diagnóstico' },
@@ -12,7 +20,10 @@ const upcomingTopics = [
   { title: 'Como estruturar uma RFP de frota defensável', tag: 'Contratação' },
   { title: 'O que muda na frota nos primeiros 90 dias pós-decisão', tag: 'Transformação' },
   { title: 'Indicadores que toda governança de frota deveria acompanhar', tag: 'Governança' },
-];
+].filter((t) => !publishedTitles.has(t.title));
+
+const formatDate = (date: Date) =>
+  new Date(date).toLocaleDateString('pt-BR', { day: '2-digit', month: 'short', year: 'numeric', timeZone: 'UTC' });
 
 const whatsappUrl = getWhatsAppUrl('Olá, gostaria de ser avisado quando o blog da LuHao Mobiliza publicar novos conteúdos.');
 ---
@@ -21,40 +32,66 @@ const whatsappUrl = getWhatsAppUrl('Olá, gostaria de ser avisado quando o blog 
   <section class="lm-page-hero">
     <div class="container">
       <span class="eyebrow">Blog</span>
-      <h1>Conteúdo sobre mobilidade corporativa em produção</h1>
+      <h1>Conteúdo sobre mobilidade corporativa</h1>
       <p>
-        Estamos preparando os primeiros artigos com a mesma disciplina analítica que aplicamos nos projetos: evidência, comparação justa entre cenários e foco em decisão executiva.
+        Artigos com a mesma disciplina analítica que aplicamos nos projetos: evidência, comparação justa entre cenários e foco em decisão executiva.
       </p>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container">
-      <div class="lm-section-head">
-        <span class="eyebrow">Em produção</span>
-        <h2>Temas que pautam os próximos conteúdos</h2>
+  {posts.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <div class="lm-posts">
+          {posts.map((post) => (
+            <a class="lm-posts__card" href={`/blog/${post.data.slug || post.id}`}>
+              {post.data.featuredImage && (
+                <div class="lm-posts__image">
+                  <img src={post.data.featuredImage} alt={post.data.featuredImageAlt || post.data.title} loading="lazy" />
+                </div>
+              )}
+              <div class="lm-posts__body">
+                {post.data.categories?.[0] && <span class="lm-posts__tag">{post.data.categories[0]}</span>}
+                <h2>{post.data.title}</h2>
+                <p>{post.data.metaDescription}</p>
+                <span class="lm-posts__date">{formatDate(post.data.pubDate)}</span>
+              </div>
+            </a>
+          ))}
+        </div>
       </div>
+    </section>
+  )}
 
-      <div class="lm-topics">
-        {upcomingTopics.map((t) => (
-          <div class="lm-topics__card">
-            <span class="lm-topics__tag">{t.tag}</span>
-            <h3>{t.title}</h3>
-            <span class="lm-topics__soon">Em breve</span>
-          </div>
-        ))}
+  {upcomingTopics.length > 0 && (
+    <section class:list={['section', posts.length > 0 && 'section--soft']}>
+      <div class="container">
+        <div class="lm-section-head">
+          <span class="eyebrow">Em produção</span>
+          <h2>Próximos temas</h2>
+        </div>
+
+        <div class="lm-topics">
+          {upcomingTopics.map((t) => (
+            <div class="lm-topics__card">
+              <span class="lm-topics__tag">{t.tag}</span>
+              <h3>{t.title}</h3>
+              <span class="lm-topics__soon">Em breve</span>
+            </div>
+          ))}
+        </div>
+
+        <p class="lm-blog__notice">
+          Quer receber aviso assim que um novo artigo for publicado? <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">Fale com a gente pelo WhatsApp</a>.
+        </p>
       </div>
-
-      <p class="lm-blog__notice">
-        Quer receber aviso assim que o primeiro artigo for publicado? <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">Fale com a gente pelo WhatsApp</a>.
-      </p>
-    </div>
-  </section>
+    </section>
+  )}
 
   <CTA
     eyebrow="Enquanto isso"
     title="Comece pelo diagnóstico da sua própria frota"
-    text="Em vez de esperar pelo blog, entenda hoje onde está o valor da mobilidade corporativa da sua empresa com o Mobility Readiness Assessment®."
+    text="Em vez de esperar pelo próximo artigo, entenda hoje onde está o valor da mobilidade corporativa da sua empresa com o Mobility Readiness Assessment®."
   />
 </BaseLayout>
 
@@ -90,6 +127,77 @@ const whatsappUrl = getWhatsAppUrl('Olá, gostaria de ser avisado quando o blog 
   .lm-section-head h2 {
     font-size: clamp(24px, 3vw, 32px);
     margin: 12px 0;
+  }
+
+  .lm-posts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  .lm-posts__card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid rgba(6, 26, 61, 0.08);
+    box-shadow: 0 14px 32px rgba(6, 26, 61, 0.06);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .lm-posts__card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 42px rgba(6, 26, 61, 0.12);
+  }
+
+  .lm-posts__image {
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+  }
+
+  .lm-posts__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .lm-posts__body {
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .lm-posts__tag {
+    display: inline-block;
+    margin-bottom: 10px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--lm-purple);
+  }
+
+  .lm-posts__body h2 {
+    font-size: 18px;
+    line-height: 1.4;
+    margin: 0 0 10px;
+  }
+
+  .lm-posts__body p {
+    font-size: 14px;
+    color: var(--lm-muted);
+    margin: 0 0 16px;
+    flex: 1;
+  }
+
+  .lm-posts__date {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--lm-muted);
   }
 
   .lm-topics {
@@ -145,12 +253,14 @@ const whatsappUrl = getWhatsAppUrl('Olá, gostaria de ser avisado quando o blog 
   }
 
   @media (max-width: 1024px) {
+    .lm-posts,
     .lm-topics {
       grid-template-columns: repeat(2, 1fr);
     }
   }
 
   @media (max-width: 640px) {
+    .lm-posts,
     .lm-topics {
       grid-template-columns: 1fr;
     }
