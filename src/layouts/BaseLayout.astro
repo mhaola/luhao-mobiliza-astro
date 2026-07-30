@@ -29,6 +29,8 @@ const absoluteOgImage = new URL(ogImage, siteConfig.url).toString();
 
 const fontStylesheet =
   'https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap';
+
+const gtmId = import.meta.env.PUBLIC_GTM_ID;
 ---
 
 <!doctype html>
@@ -69,6 +71,17 @@ const fontStylesheet =
     <slot name="head" />
   </head>
   <body class={bodyClass}>
+    {gtmId && (
+      <noscript>
+        <iframe
+          src={`https://www.googletagmanager.com/ns.html?id=${gtmId}`}
+          height="0"
+          width="0"
+          style="display:none;visibility:hidden"
+          title="Google Tag Manager"
+        ></iframe>
+      </noscript>
+    )}
     <div class="page-wrapper">
       <Header currentPath={Astro.url.pathname} />
       <main id="main-content">

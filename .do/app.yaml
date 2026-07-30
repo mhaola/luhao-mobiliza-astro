@@ -12,13 +12,7 @@ static_sites:
     output_dir: dist
     environment_slug: node-js
     envs:
-      - key: PUBLIC_GA_ID
-        scope: BUILD_TIME
-        value: ""
-      - key: PUBLIC_GOOGLE_ADS_ID
-        scope: BUILD_TIME
-        value: ""
-      - key: PUBLIC_META_PIXEL_ID
+      - key: PUBLIC_GTM_ID
         scope: BUILD_TIME
         value: ""
 

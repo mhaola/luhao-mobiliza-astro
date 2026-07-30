@@ -38,15 +38,13 @@ Se preferir configurar manualmente em vez de usar o `.do/app.yaml`:
 - **Output Directory**: `dist`
 - **Environment**: Node.js
 
-## 3. Variáveis de ambiente (opcional)
+## 3. Variáveis de ambiente
 
-Se for usar Google Analytics, Google Ads ou Meta Pixel, adicione em **Settings → App-Level Environment Variables** (ou nas envs do componente `web`):
+Todo o rastreamento (GA4, Meta Pixel, e futuras tags) é centralizado no Google Tag Manager. Adicione em **Settings → App-Level Environment Variables** (ou nas envs do componente `web`):
 
-- `PUBLIC_GA_ID`
-- `PUBLIC_GOOGLE_ADS_ID`
-- `PUBLIC_META_PIXEL_ID`
+- `PUBLIC_GTM_ID` — ID do container do GTM (formato `GTM-XXXXXXX`)
 
-Essas variáveis são lidas em build time pelo componente `Tracking.astro`.
+Essa variável é lida em build time pelo componente `Tracking.astro`. As tags de GA4 e Meta Pixel em si são configuradas dentro do próprio container do GTM (tagmanager.google.com), não no código do site.
 
 ## 4. Apontar o domínio `luhao-mobiliza.com.br`
 

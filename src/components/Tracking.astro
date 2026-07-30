@@ -1,101 +1,28 @@
 ---
-const gaId = import.meta.env.PUBLIC_GA_ID;
-const adsId = import.meta.env.PUBLIC_GOOGLE_ADS_ID;
-const metaPixelId = import.meta.env.PUBLIC_META_PIXEL_ID;
+const gtmId = import.meta.env.PUBLIC_GTM_ID;
 
 /**
  * Tracking otimizado para PageSpeed mobile.
  *
  * Objetivo:
- * - Não carregar GA / Google Ads / Meta Pixel durante a renderização inicial.
+ * - Não carregar o Google Tag Manager durante a renderização inicial.
  * - Carregar após primeira interação real do usuário OU alguns segundos após o load.
  * - Evitar múltiplos carregamentos.
- * - Manter gtag e fbq disponíveis apenas quando os respectivos IDs existirem.
+ *
+ * Todas as tags (GA4, Meta Pixel, etc.) são configuradas dentro do próprio
+ * container do GTM, não no código do site.
  */
-const hasTracking = Boolean(gaId || adsId || metaPixelId);
 ---
 
-{hasTracking && (
-  <script is:inline define:vars={{ gaId, adsId, metaPixelId }}>
+{gtmId && (
+  <script is:inline define:vars={{ gtmId }}>
     (() => {
       let loaded = false;
       let idleTimer = null;
       const w = window;
       const d = document;
 
-      const loadExternalScript = (src) =>
-        new Promise((resolve, reject) => {
-          const existing = d.querySelector(`script[src="${src}"]`);
-          if (existing) {
-            resolve();
-            return;
-          }
-
-          const script = d.createElement('script');
-          script.async = true;
-          script.defer = true;
-          script.src = src;
-          script.onload = resolve;
-          script.onerror = reject;
-          d.head.appendChild(script);
-        });
-
-      const setupGoogleTracking = () => {
-        const primaryGoogleId = gaId || adsId;
-        if (!primaryGoogleId) return;
-
-        w.dataLayer = w.dataLayer || [];
-        w.gtag =
-          w.gtag ||
-          function gtag() {
-            w.dataLayer.push(arguments);
-          };
-
-        loadExternalScript(`https://www.googletagmanager.com/gtag/js?id=${primaryGoogleId}`)
-          .then(() => {
-            w.gtag('js', new Date());
-
-            if (gaId) {
-              w.gtag('config', gaId, {
-                send_page_view: true,
-                transport_type: 'beacon',
-              });
-            }
-
-            if (adsId && adsId !== gaId) {
-              w.gtag('config', adsId, {
-                transport_type: 'beacon',
-              });
-            }
-          })
-          .catch(() => {});
-      };
-
-      const setupMetaPixel = () => {
-        if (!metaPixelId || w.fbq) return;
-
-        !(function (f, b, e, v, n, t, s) {
-          n = f.fbq = function () {
-            n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
-          };
-          if (!f._fbq) f._fbq = n;
-          n.push = n;
-          n.loaded = true;
-          n.version = '2.0';
-          n.queue = [];
-          t = b.createElement(e);
-          t.async = true;
-          t.defer = true;
-          t.src = v;
-          s = b.getElementsByTagName(e)[0];
-          s.parentNode.insertBefore(t, s);
-        })(w, d, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
-
-        w.fbq('init', metaPixelId);
-        w.fbq('track', 'PageView');
-      };
-
-      const loadTracking = () => {
+      const loadGTM = () => {
         if (loaded) return;
         loaded = true;
 
@@ -104,25 +31,33 @@ const hasTracking = Boolean(gaId || adsId || metaPixelId);
           idleTimer = null;
         }
 
-        setupGoogleTracking();
-        setupMetaPixel();
+        (function (win, doc, script, layer, id) {
+          win[layer] = win[layer] || [];
+          win[layer].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+          const first = doc.getElementsByTagName(script)[0];
+          const tag = doc.createElement(script);
+          const dl = layer !== 'dataLayer' ? '&l=' + layer : '';
+          tag.async = true;
+          tag.src = 'https://www.googletagmanager.com/gtm.js?id=' + id + dl;
+          first.parentNode.insertBefore(tag, first);
+        })(w, d, 'script', 'dataLayer', gtmId);
       };
 
       const scheduleAfterLoad = () => {
-        // Mantém os scripts fora do caminho crítico do FCP/LCP.
+        // Mantém o GTM fora do caminho crítico do FCP/LCP.
         const delay = 4500;
 
         if ('requestIdleCallback' in w) {
-          w.requestIdleCallback(loadTracking, { timeout: delay });
+          w.requestIdleCallback(loadGTM, { timeout: delay });
         } else {
-          idleTimer = w.setTimeout(loadTracking, delay);
+          idleTimer = w.setTimeout(loadGTM, delay);
         }
       };
 
       const interactionEvents = ['pointerdown', 'keydown', 'touchstart'];
 
       interactionEvents.forEach((eventName) => {
-        w.addEventListener(eventName, loadTracking, {
+        w.addEventListener(eventName, loadGTM, {
           once: true,
           passive: true,
           capture: true,

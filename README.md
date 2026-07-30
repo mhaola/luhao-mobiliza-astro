@@ -34,7 +34,7 @@ public/images/blog/  Imagens de capa dos artigos (geradas por automação)
 Este projeto foi entregue com conteúdo real (metodologia MOVE®, produtos, case ilustrativo Alpha Engenharia), mas alguns dados de contato são **placeholders** e precisam ser substituídos antes do lançamento:
 
 - [ ] `src/config/site.ts`: telefone (`phoneLabel`/`phoneHref`), número de WhatsApp (`whatsappNumber`), e-mail, links de LinkedIn/Instagram
-- [ ] `.env` (criar a partir de `.env.example`): IDs de Google Analytics, Google Ads e Meta Pixel, se forem usados
+- [x] `.env` (criar a partir de `.env.example`): `PUBLIC_GTM_ID` do container do Google Tag Manager — GA4 e Meta Pixel são configurados dentro do próprio GTM, não no código
 - [ ] Revisar `public/images/fundo-mobiliza.png` (usado como imagem de Open Graph) e trocar por uma arte final se desejar
 
 ## Blog: collection, schema e automação de artigos
